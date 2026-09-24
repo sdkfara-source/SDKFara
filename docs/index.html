@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مركز حكيم للدراسات والبحوث | دمشق — مركز بحثي مستقل</title>
+<meta name="description" content="مركز حكيم للدراسات والبحوث — مركز بحثي مستقل في دمشق متخصص في الدراسات الاقتصادية والاستراتيجية والسياسات العامة، يقدّم بحوثاً ومؤشرات ودراسات ميدانية موثوقة.">
+<meta property="og:title" content="مركز حكيم للدراسات والبحوث | دمشق">
+<meta property="og:description" content="مركز بحثي مستقل — دراسات اقتصادية، مؤشرات ميدانية، وسياسات عامة في سوريا.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/logo.png">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- Preloader -->
+<div id="loader" aria-hidden="true">
+  <div class="loader-inner">
+    <div class="loader-logo"><img src="assets/logo.png" alt="مركز حكيم"></div>
+    <div class="loader-ring"></div>
+  </div>
+</div>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mm-close" id="mmClose" aria-label="إغلاق القائمة">&times;</button>
+  <nav class="mm-links" id="mmLinks">
+    <a href="#home">الرئيسية</a>
+    <a href="#about">عن المركز</a>
+    <a href="#fields">مجالات البحث</a>
+    <a href="#studies">الدراسات والأبحاث</a>
+    <a href="#team">الفريق العلمي</a>
+    <a href="#contact">تواصل معنا</a>
+  </nav>
+</div>
+
+<!-- Header -->
+<header class="site-header" id="siteHeader">
+  <div class="container">
+    <nav class="nav">
+      <a class="brand" href="#home">
+        <span class="brand-logo" id="brandLogo"><img src="assets/logo.png" alt="شعار مركز حكيم"></span>
+        <span>
+          <span class="brand-name" data-cms="brand.name_ar">مركز حكيم للدراسات والبحوث</span>
+          <span class="brand-sub" data-cms="brand.sub">المكتب الإقليمي — دمشق</span>
+        </span>
+      </a>
+      <nav class="nav-links" aria-label="التنقل الرئيسي">
+        <a href="#home" class="active">الرئيسية</a>
+        <a href="#about">عن المركز</a>
+        <a href="#fields">مجالات البحث</a>
+        <a href="#studies">الدراسات والأبحاث</a>
+        <a href="#team">الفريق العلمي</a>
+        <a href="#contact">تواصل معنا</a>
+      </nav>
+      <div class="nav-cta"><a href="#studies" class="btn btn--gold btn--sm">تصفح الدراسات</a></div>
+      <button id="navToggle" aria-label="فتح القائمة" aria-expanded="false">&#9776;</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <span class="hero-kicker"><span class="dot"></span><span data-cms="hero.kicker">مركز بحثي مستقل — دمشق، الجمهورية العربية السورية</span></span>
+          <h1 data-cms-html="hero.title">حيث تلتقي <em>الرؤية العلمية</em> بسياقها الوطني</h1>
+          <p class="hero-lead" data-cms="hero.lead">منذ عام 2014 يقدّم مركز حكيم دراسات اقتصادية واستراتيجية ميدانية موثوقة، تُضيء صناعة القرار وتُوثّق المشهد السوري بمقاربات دقيقة ونزيهة.</p>
+          <div class="hero-actions">
+            <a href="#studies" class="btn btn--gold" data-cms="hero.cta1">استكشف الدراسات <span class="arr">&#8592;</span></a>
+            <a href="#about" class="btn btn--ghost" data-cms="hero.cta2">تعرّف على المركز</a>
+          </div>
+          <p class="hero-note">
+            <span style="color:var(--gold-300)">&#9733;</span>
+            <span data-cms="hero.note">أحدث الإصدارات: النشرة الشهرية لأسعار المستهلك والتضخم في سوريا — كانون الأول 2024</span>
+          </p>
+        </div>
+        <div class="hero-emblem" aria-hidden="true">
+          <div class="hero-logo"><img src="assets/logo.png" alt="شعار مركز حكيم للدراسات والبحوث"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats" id="stats" aria-label="مؤشرات المركز">
+    <div class="container" id="statsGrid">
+      <div class="stat" data-reveal>
+        <div class="ico">&#9672;</div>
+        <div class="num"><span class="counter" data-count="2014">2014</span></div>
+        <div class="lbl">عام التأسيس — دمشق</div>
+      </div>
+      <div class="stat" data-reveal data-delay="1">
+        <div class="ico">&#9834;</div>
+        <div class="num"><span class="counter" id="statStudies" data-count="0">0</span><span class="k">+</span></div>
+        <div class="lbl">دراسة ومقالة مرجعية</div>
+      </div>
+      <div class="stat" data-reveal data-delay="2">
+        <div class="ico">&#9830;</div>
+        <div class="num"><span class="counter" id="statFields" data-count="0">0</span></div>
+        <div class="lbl">مجال بحثي متخصص</div>
+      </div>
+      <div class="stat" data-reveal data-delay="3">
+        <div class="ico">&#9733;</div>
+        <div class="num"><span class="counter" data-count="48">48</span><span class="k">+</span></div>
+        <div class="lbl">باحثاً وخبيراً مساهماً</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text" data-reveal>
+          <span class="eyebrow" data-cms="about.eyebrow">عن المركز</span>
+          <h2 class="sec-title" data-cms-html="about.title">معرفة صارمة… في خدمة القرار الوطني</h2>
+          <div id="aboutParagraphs">
+            <p>تأسس مركز حكيم للدراسات والبحوث في دمشق عام 2014 ليكون منصة بحثية مستقلة تجمع نخبة من الأكاديميين والباحثين الميدانيين، وإجابةً عن الحاجة إلى معرفة دقيقة تنهض بالتخطيط الوطني.</p>
+            <p>يعتمد المركز منهجيات علمية رصينة، ويركّز على الدراسات الاقتصادية والتنموية والمؤشرات الميدانية، مع شبكة باحثين في جميع المحافظات تحرص على أن يعكس كل إصدار واقع السوريين كما هو، بالأرقام لا بالإنشاء.</p>
+          </div>
+          <div class="about-values" id="aboutValues">
+            <div class="value" data-reveal>
+              <span class="vico">&#9672;</span>
+              <div><b>الاستقلالية</b><span>لا تمويل يوجه النتائج؛ المعرفة أولاً وأخيراً.</span></div>
+            </div>
+            <div class="value" data-reveal data-delay="1">
+              <span class="vico">&#9733;</span>
+              <div><b>الصرامة المنهجية</b><span>مناهج محكَّمة ومؤشرات رصد قابلة للتحقق.</span></div>
+            </div>
+            <div class="value" data-reveal data-delay="2">
+              <span class="vico">&#9776;</span>
+              <div><b>المرجعية الوثائقية</b><span>كل دراسة تستند إلى بيانات ميدانية موثقة.</span></div>
+            </div>
+            <div class="value" data-reveal data-delay="3">
+              <span class="vico">&#9834;</span>
+              <div><b>الأثر المجتمعي</b><span>بحث يتحول إلى قرارات وسياسات قابلة للتطبيق.</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="about-card" data-reveal data-delay="1">
+          <div class="ac-top">
+            <div class="ac-logo"><img src="assets/logo.png" alt="شعار مركز حكيم"></div>
+            <div>
+              <h3 data-cms="about.card_title">بطاقة المركز</h3>
+              <div class="ac-loc" data-cms="brand.sub">&#9670; المكتب الإقليمي — دمشق</div>
+            </div>
+          </div>
+          <ul class="ac-list" id="aboutCardRows">
+            <li><b>الاسم القانوني</b><span>مركز حكيم للدراسات والبحوث</span></li>
+            <li><b>سنة التأسيس</b><span>2014</span></li>
+            <li><b>الطبيعة</b><span>مركز بحوث مستقل — غير ربحي</span></li>
+            <li><b>المقر</b><span>منطقة المزة، شارع الثورة، مبنى 12</span></li>
+            <li><b>مجال التخصص</b><span>الاقتصاد، السياسات العامة، الرصد الميداني</span></li>
+            <li><b>الشركاء</b><span>جامعات، مراكز إقليمية، منظمات دولية</span></li>
+          </ul>
+          <div class="ac-cta"><a href="#contact" class="btn btn--gold btn--block" data-cms="about.card_cta">تواصل مع المركز <span class="arr">&#8592;</span></a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fields -->
+  <section class="section section--ivory fields" id="fields">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow" data-cms="fields.eyebrow">مجالات البحث</span>
+        <h2 class="sec-title" data-cms="fields.title">أذرعٌ معرفية متخصصة</h2>
+        <p class="sec-lead" data-cms="fields.lead">يغطي المركز حقولاً بحثية مترابطة تُخرج المعرفة الأكاديمية إلى سياقها التطبيقي في سوريا.</p>
+        <div class="ornament ornament--center"><span class="dia">&#9672;</span></div>
+      </div>
+      <div class="fields-grid" id="fieldsGrid">
+        <div class="field" data-reveal>
+          <div class="fico">&#9673;</div>
+          <h3>الدراسات الاقتصادية</h3>
+          <p>مؤشرات الأسعار والتضخم وأسعار الصرف والمعيشة عبر رصد ميداني شهري في كل المحافظات.</p>
+          <a class="more" href="#studies">إلى الكتابات <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg></a>
+        </div>
+        <div class="field" data-reveal data-delay="1">
+          <div class="fico">&#9670;</div>
+          <h3>السياسات العامة</h3>
+          <p>تحليل القرارات الاقتصادية والإدارية في المرحلة الانتقالية، وأوراق سياسات يقبل عليها صانعو القرار.</p>
+          <a class="more" href="#studies">إلى الدراسات <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg></a>
+        </div>
+        <div class="field" data-reveal data-delay="2">
+          <div class="fico">&#9662;</div>
+          <h3>الموارد المائية والزراعة</h3>
+          <p>رصد أزمة المياه والجفاف وتأثيراته على الأمن الغذائي والأهوار والأحواض المشتركة.</p>
+          <a class="more" href="#studies">إلى الدراسات <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg></a>
+        </div>
+        <div class="field" data-reveal>
+          <div class="fico">&#9740;</div>
+          <h3>الدراسات الاجتماعية</h3>
+          <p>خطوط الفقر والتعليم والصحة وتأثيرات النزوح على الأسر والمجتمعات المحلية.</p>
+          <a class="more" href="#studies">إلى الدراسات <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg></a>
+        </div>
+        <div class="field" data-reveal data-delay="1">
+          <div class="fico">&#9735;</div>
+          <h3>الحوكمة والقانون</h3>
+          <p>دراسات في التشريع والإدارة المحلية والحكم الرشيد ومؤشرات بيئة الأعمال.</p>
+          <a class="more" href="#studies">إلى الدراسات <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg></a>
+        </div>
+        <div class="field" data-reveal data-delay="2">
+          <div class="fico">&#9784;</div>
+          <h3>الرصد والتوثيق</h3>
+          <p>قواعد بيانات ومؤشرات ميدانية محدَّثة تخدم الباحثين ومراكز الفكر الإقليمية والدولية.</p>
+          <a class="more" href="#studies">إلى الدراسات <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Studies -->
+  <section class="section studies" id="studies">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow" data-cms="studies.eyebrow">مكتبة الإصدارات</span>
+        <h2 class="sec-title" data-cms="studies.title">الدراسات والأبحاث</h2>
+        <p class="sec-lead" data-cms="studies.lead">مكتبة مركز حكيم للأبحاث والمؤشرات قابلة للتصفح والتحميل، وتُحدَّث ذاتياً كلما أُضيف ملف جديد إلى مجلد الدراسات.</p>
+        <div class="ornament ornament--center"><span class="dia">&#9672;</span></div>
+      </div>
+
+      <div class="studies-toolbar" data-reveal>
+        <div class="search-box">
+          <span class="sico">&#9906;</span>
+          <input type="search" id="studySearch" placeholder="ابحث في العناوين والاختصاصات…" aria-label="بحث في الدراسات">
+        </div>
+        <div class="studies-meta">
+          <span class="pulse-dot"></span>
+          <span>يراقب الخادم مجلد <code style="direction:ltr">studies/</code> — آخر فحص: <b id="lastScan" style="color:var(--navy-900)">…</b></span>
+        </div>
+      </div>
+
+      <div class="tabs" id="studiesTabs" role="tablist" aria-label="تبويبات الاختصاص" data-reveal></div>
+
+      <div class="studies-grid" id="studiesGrid" aria-live="polite">
+        <div class="study-card skeleton" style="min-height:230px"></div>
+        <div class="study-card skeleton" style="min-height:230px"></div>
+        <div class="study-card skeleton" style="min-height:230px"></div>
+      </div>
+
+      <div class="studies-empty" id="studiesEmpty" hidden>
+        <span class="big">&#9638;</span>
+        <h3 style="font-size:20px;color:var(--navy-900)">لا توجد نتائج مطابقة</h3>
+        <p>جرّب كلمة بحث مختلفة أو اختر تبويباً آخر.</p>
+      </div>
+
+      <div class="studies-foot" data-reveal>
+        <p data-cms-html="studies.foot"><b>قاعدة التسمية الآلية:</b> تُقرأ ملفات <code>studies/اختصاص - العنوان - السنة.pdf</code> وتُضاف مباشرةً إلى التبويب الصحيح. مثال: <code>الاقتصاد - أسعار المستهلك في سوريا - 2024.pdf</code></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="section section--ivory team" id="team">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow" data-cms="team.eyebrow">الفريق العلمي</span>
+        <h2 class="sec-title" data-cms="team.title">نخبة من الباحثين المستقلين</h2>
+        <p class="sec-lead" data-cms="team.lead">يرأس المركز لجنة علمية استشارية تضم خبراء في الاقتصاد والتنمية والسياسات العامة، مع شبكة باحثين ميدانيين في كل المحافظات.</p>
+        <div class="ornament ornament--center"><span class="dia">&#9672;</span></div>
+      </div>
+      <div class="team-grid" id="teamGrid">
+        <div class="member" data-reveal>
+          <div class="avatar">ح</div>
+          <h3>د. حكيم الحكيم</h3>
+          <div class="role">المدير العام</div>
+          <p>اقتصادي، باحث معمق في السياسات النقدية والمالية السورية.</p>
+        </div>
+        <div class="member" data-reveal data-delay="1">
+          <div class="avatar">س</div>
+          <h3>د. سعاد الخطيب</h3>
+          <div class="role">رئيسة اللجنة العلمية</div>
+          <p>أستاذة اقتصاد تنموي، متخصصة في مؤشرات الفقر والمعيشة.</p>
+        </div>
+        <div class="member" data-reveal data-delay="2">
+          <div class="avatar">م</div>
+          <h3>أ. ماجد العلي</h3>
+          <div class="role">وحدة الرصد الميداني</div>
+          <p>مشرف شبكة الباحثين الميدانيين في المحافظات.</p>
+        </div>
+        <div class="member" data-reveal data-delay="3">
+          <div class="avatar">ن</div>
+          <h3>د. ناديا صقر</h3>
+          <div class="role">شؤون السياسات العامة</div>
+          <p>خبيرة حوكمة وتشريعات، محررة أوراق السياسات.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA band -->
+  <section class="section cta-band">
+    <div class="container" data-reveal>
+      <h2 data-cms="cta.title">دراستك القادمة تبدأ ببيانات موثوقة</h2>
+      <p data-cms="cta.text">سواء كنت باحثاً أو صانع قرار أو مؤسسة دولية، مكتبة مركز حكيم بين يديك — حمّلها الآن أو تواصل معنا لطلب دراسة مخصصة.</p>
+      <div class="cta-actions">
+        <a href="#studies" class="btn btn--gold" data-cms="cta.btn1">تحميل الدراسات</a>
+        <a href="#contact" class="btn btn--ghost" data-cms="cta.btn2">اطلب دراسة مخصصة</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow" data-cms="contact.eyebrow">التواصل</span>
+        <h2 class="sec-title" data-cms="contact.title">يسعدنا سماع صوتك</h2>
+        <p class="sec-lead" data-cms="contact.lead">تواصل مع الفريق لطلب الدراسات، أو الدخول في شراكة بحثية، أو الوصول إلى قاعدة بيانات المركز.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info" data-reveal>
+          <div class="ci-item" data-reveal>
+            <span class="ci-icon">&#9673;</span>
+            <div><b data-cms="contact.items.0.label">المقر الرئيسي</b><span data-cms="contact.items.0.text">دمشق — منطقة المزة، شارع الثورة، مبنى 12، الطابق الثالث</span></div>
+          </div>
+          <div class="ci-item" data-reveal data-delay="1">
+            <span class="ci-icon">&#9743;</span>
+            <div><b data-cms="contact.items.1.label">الهاتف</b><span data-cms="contact.items.1.text">+963 11 447 0000</span></div>
+          </div>
+          <div class="ci-item" data-reveal data-delay="2">
+            <span class="ci-icon">&#9993;</span>
+            <div><b data-cms="contact.items.2.label">البريد الإلكتروني</b><span data-cms="contact.items.2.text">info@hakeem-cs.org</span></div>
+          </div>
+          <div class="ci-item" data-reveal data-delay="3">
+            <span class="ci-icon">&#9787;</span>
+            <div><b data-cms="contact.items.3.label">ساعات الدوام</b><span data-cms="contact.items.3.text">السبت — الخميس: 9:00 إلى 17:00</span></div>
+          </div>
+        </div>
+        <form class="contact-form" id="contactForm" data-reveal data-delay="1">
+          <h3 data-cms="contact.form_title">أرسل رسالتك</h3>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="cName">الاسم الكامل</label>
+              <input type="text" id="cName" name="name" required placeholder="اكتب اسمك…">
+            </div>
+            <div class="form-field">
+              <label for="cEmail">البريد الإلكتروني</label>
+              <input type="email" id="cEmail" name="email" required placeholder="name@example.com" dir="ltr" style="text-align:right">
+            </div>
+          </div>
+          <div class="form-field" style="margin-bottom:16px">
+            <label for="cTopic">موضوع الرسالة</label>
+            <input type="text" id="cTopic" name="topic" required placeholder="طلب دراسة، شراكة، وصول إلى البيانات…">
+          </div>
+          <div class="form-field">
+            <label for="cMsg">الرسالة</label>
+            <textarea id="cMsg" name="message" required placeholder="تفاصيل طلبك…"></textarea>
+          </div>
+          <button type="submit" class="btn btn--gold btn--block" style="margin-top:20px">إرسال الرسالة <span class="arr">&#8592;</span></button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="#home">
+          <span class="brand-logo" id="footerLogo" style="width:77px;height:77px"><img src="assets/logo.png" alt="شعار مركز حكيم"></span>
+          <span>
+            <span class="brand-name" data-cms="brand.name_ar">مركز حكيم للدراسات والبحوث</span>
+            <span class="brand-sub" data-cms="brand.name_en">Hakeem Center for Studies &amp; Research</span>
+          </span>
+        </a>
+        <p data-cms="footer.about">مركز بحثي مستقل في دمشق، يقدم أبحاثاً ومؤشرات ودراسات ميدانية بمناهج علمية صارمة، في خدمة القرار الوطني والفاعلين المحليين والدوليين.</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-cms="footer.col1_title">أقسام الموقع</h4>
+        <ul id="footerCol1">
+          <li><a href="#home">الرئيسية</a></li>
+          <li><a href="#about">عن المركز</a></li>
+          <li><a href="#fields">مجالات البحث</a></li>
+          <li><a href="#studies">الدراسات والأبحاث</a></li>
+          <li><a href="#team">الفريق العلمي</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-cms="footer.col2_title">مجالات البحث</h4>
+        <ul id="footerCol2">
+          <li><a href="#studies">الاقتصاد والمؤشرات</a></li>
+          <li><a href="#studies">السياسات العامة</a></li>
+          <li><a href="#studies">الموارد المائية والزراعة</a></li>
+          <li><a href="#studies">الدراسات الاجتماعية</a></li>
+          <li><a href="#studies">الحوكمة والقانون</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>معلومات التواصل</h4>
+        <ul class="footer-contact" id="footerContact">
+          <li><span class="ic">&#9673;</span><span>دمشق — المزة، شارع الثورة، مبنى 12</span></li>
+          <li><span class="ic">&#9743;</span><span>+963 11 447 0000</span></li>
+          <li><span class="ic">&#9993;</span><span style="direction:ltr">info@hakeem-cs.org</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-cms="footer.bottom_left">&copy; 2026 مركز حكيم للدراسات والبحوث — جميع الحقوق محفوظة</span>
+      <span data-cms="footer.bottom_middle">صنع بمقاييس الفخامة العلمية في دمشق <span style="color:var(--gold-400)">&#9672;</span></span>
+      
+    </div>
+  </div>
+</footer>
+
+<button id="backTop" aria-label="العودة إلى الأعلى">&#9650;</button>
+
+
+  <script>window.HAKEEM_CMS={"logo":"assets/logo.png","content":{"version":1,"brand":{"name_ar":"مركز حكيم للدراسات والبحوث","name_en":"Hakeem Center for Studies & Research","sub":"المكتب الإقليمي — دمشق"},"hero":{"kicker":"مركز بحثي مستقل — دمشق، الجمهورية العربية السورية","title":"حيث تلتقي <em>الرؤية العلمية<\/em> بسياقها الوطني","lead":"منذ عام 2014 يقدّم مركز حكيم دراسات اقتصادية واستراتيجية ميدانية موثوقة، تُضيء صناعة القرار وتُوثّق المشهد السوري بمقاربات دقيقة ونزيهة.","note":"أحدث الإصدارات: النشرة الشهرية لأسعار المستهلك والتضخم في سوريا — كانون الأول 2024","cta1":"استكشف الدراسات","cta2":"تعرّف على المركز"},"stats":[{"icon":"◆","value":2014,"label":"عام التأسيس — دمشق"},{"icon":"♞","value":12,"label":"دراسة ومقالة مرجعية","prefix":""},{"icon":"◆","value":5,"label":"مجال بحثي متخصص"},{"icon":"★","value":48,"label":"خبيراً وباحثاً مساهماً","prefix":"+"}],"about":{"eyebrow":"عن المركز","title":"معرفة صارمة… في خدمة القرار الوطني","paragraphs":["تأسس مركز حكيم للدراسات والبحوث في دمشق عام 2014 ليكون منصة بحثية مستقلة تجمع نخبة من الأكاديميين والباحثين الميدانيين، وإجابةً عن الحاجة إلى معرفة دقيقة تنهض بالتخطيط الوطني.","يعتمد المركز منهجيات علمية رصينة، ويركّز على الدراسات الاقتصادية والتنموية والمؤشرات الميدانية، مع شبكة باحثين في جميع المحافظات تحرص على أن يعكس كل إصدار واقع السوريين كما هو، بالأرقام لا بالإنشاء."],"values":[{"icon":"◆","title":"الاستقلالية","text":"لا تمويل يوجه النتائج؛ المعرفة أولاً وأخيراً."},{"icon":"★","title":"الصرامة المنهجية","text":"مناهج محكَّمة ومؤشرات رصد قابلة للتحقق."},{"icon":"☰","title":"المرجعية الوثائقية","text":"كل دراسة تستند إلى بيانات ميدانية موثقة."},{"icon":"♞","title":"الأثر المجتمعي","text":"بحث يتحول إلى قرارات وسياسات قابلة للتطبيق."}],"card_title":"بطاقة المركز","card_rows":[{"k":"الاسم القانوني","v":"مركز حكيم للدراسات والبحوث"},{"k":"سنة التأسيس","v":"2014"},{"k":"الطبيعة","v":"مركز بحوث مستقل — غير ربحي"},{"k":"المقر","v":"منطقة المزة، شارع الثورة، مبنى 12"},{"k":"مجال التخصص","v":"الاقتصاد، السياسات العامة، الرصد الميداني"},{"k":"الشركاء","v":"جامعات، مراكز إقليمية، منظمات دولية"}],"card_cta":"تواصل مع المركز"},"fields":{"eyebrow":"مجالات البحث","title":"أذرعٌ معرفية متخصصة","lead":"يغطي المركز حقولاً بحثية مترابطة تُخرج المعرفة الأكاديمية إلى سياقها التطبيقي في سوريا.","items":[{"icon":"◉","title":"الدراسات الاقتصادية","text":"مؤشرات الأسعار والتضخم وأسعار الصرف والمعيشة عبر رصد ميداني شهري في كل المحافظات."},{"icon":"◆","title":"السياسات العامة","text":"تحليل القرارات الاقتصادية والإدارية في المرحلة الانتقالية، وأوراق سياسات يقبل عليها صانعو القرار."},{"icon":"▼","title":"الموارد المائية والزراعة","text":"رصد أزمة المياه والجفاف وتأثيراته على الأمن الغذائي والأحواض المشتركة."},{"icon":"☙","title":"الدراسات الاجتماعية","text":"خطوط الفقر والتعليم والصحة وتأثيرات النزوح على الأسر والمجتمعات المحلية."},{"icon":"❄","title":"الحوكمة والقانون","text":"دراسات في التشريع والإدارة المحلية والحكم الرشيد ومؤشرات بيئة الأعمال."},{"icon":"♄","title":"الرصد والتوثيق","text":"قواعد بيانات ومؤشرات ميدانية محدَّثة تخدم الباحثين ومراكز الفكر الإقليمية والدولية."}]},"studies":{"eyebrow":"مكتبة الإصدارات","title":"الدراسات والأبحاث","lead":"مكتبة مركز حكيم للأبحاث والمؤشرات قابلة للتصفح والتحميل، وتُحدَّث ذاتياً كلما أُضيف ملف جديد إلى مجلد الدراسات.","foot":"قاعدة التسمية الآلية: تُقرأ ملفات studies/اختصاص - العنوان - السنة.pdf وتُضاف مباشرةً إلى التبويب الصحيح."},"team":{"eyebrow":"الفريق العلمي","title":"نخبة من الباحثين المستقلين","lead":"يرأس المركز لجنة علمية استشارية تضم خبراء في الاقتصاد والتنمية والسياسات العامة، مع شبكة باحثين ميدانيين في كل المحافظات.","members":[{"initial":"ح","name":"د. حكيم الحكيم","role":"المدير العام","bio":"اقتصادي، باحث معمق في السياسات النقدية والمالية السورية."},{"initial":"س","name":"د. سعاد الخطيب","role":"رئيسة اللجنة العلمية","bio":"أستاذة اقتصاد تنموي، متخصصة في مؤشرات الفقر والمعيشة."},{"initial":"م","name":"أ. ماجد العلي","role":"وحدة الرصد الميداني","bio":"مشرف شبكة الباحثين الميدانيين في المحافظات."},{"initial":"ن","name":"د. ناديا صقر","role":"شؤون السياسات العامة","bio":"خبيرة حوكمة وتشريعات، محررة أوراق السياسات."}]},"cta":{"title":"دراستك القادمة تبدأ ببيانات موثوقة","text":"سواء كنت باحثاً أو صانع قرار أو مؤسسة دولية، مكتبة مركز حكيم بين يديك — حمّلها الآن أو تواصل معنا لطلب دراسة مخصصة.","btn1":"تحميل الدراسات","btn2":"اطلب دراسة مخصصة"},"contact":{"eyebrow":"التواصل","title":"يسعدنا سماع صوتك","lead":"تواصل مع الفريق لطلب الدراسات، أو الدخول في شراكة بحثية، أو الوصول إلى قاعدة بيانات المركز.","form_title":"أرسل رسالتك","items":[{"icon":"◉","label":"المقر الرئيسي","text":"دمشق — منطقة المزة، شارع الثورة، مبنى 12، الطابق الثالث"},{"icon":"☎","label":"الهاتف","text":"+963 11 447 0000"},{"icon":"✉","label":"البريد الإلكتروني","text":"info@hakeem-cs.org"},{"icon":"☇","label":"ساعات الدوام","text":"السبت — الخميس: 9:00 إلى 17:00"}]},"footer":{"about":"مركز بحثي مستقل في دمشق، يقدم أبحاثاً ومؤشرات ودراسات ميدانية بمناهج علمية صارمة، في خدمة القرار الوطني والفاعلين المحليين والدوليين.","col1_title":"أقسام الموقع","col1_links":[{"label":"الرئيسية","href":"#home"},{"label":"عن المركز","href":"#about"},{"label":"مجالات البحث","href":"#fields"},{"label":"الدراسات والأبحاث","href":"#studies"},{"label":"الفريق العلمي","href":"#team"}],"col2_title":"مجالات البحث","col2_links":[{"label":"الاقتصاد والمؤشرات","href":"#studies"},{"label":"السياسات العامة","href":"#studies"},{"label":"الموارد المائية والزراعة","href":"#studies"},{"label":"الدراسات الاجتماعية","href":"#studies"},{"label":"الحوكمة والقانون","href":"#studies"}],"contact_items":[{"icon":"◉","text":"دمشق — المزة، شارع الثورة، مبنى 12"},{"icon":"☎","text":"+963 11 447 0000"},{"icon":"✉","text":"info@hakeem-cs.org"}],"bottom_left":"© 2026 مركز حكيم للدراسات والبحوث — جميع الحقوق محفوظة","bottom_middle":"صنع بمقاييس الفخامة العلمية في دمشق","admin_label":"لوحة الإدارة"},"theme":{"navy":"#151A25","navy_dark":"#0E1420","gold":"#C9A96A","gold_soft":"#8F7B4C","ivory":"#F7F3EA"}}};window.HAKEEM_STUDIES={"studies":[{"file":"الاقتصاد - النشرة الشهرية لأسعار المستهلك والتضخم في سوريا - 2024.pdf","title":"النشرة الشهرية لأسعار المستهلك والتضخم في سوريا","specialty":"الاقتصاد","specialty_label":"الاقتصاد والتنمية","icon":"◆","year":"2024","size":214,"modified":"2026-09-20T09:38:31.932Z"},{"file":"الموارد المائية - أزمة المياه والأمن الغذائي في سوريا - 2024.pdf","title":"أزمة المياه والأمن الغذائي في سوريا","specialty":"الموارد المائية","specialty_label":"الموارد المائية والزراعة","icon":"◈","year":"2024","size":213,"modified":"2026-09-20T09:38:32.028Z"},{"file":"الاقتصاد - دليل أسعار المستهلك في سوريا وفق مؤشر باش - 2022.pdf","title":"دليل أسعار المستهلك في سوريا وفق مؤشر باش","specialty":"الاقتصاد","specialty_label":"الاقتصاد والتنمية","icon":"◆","year":"2022","size":213,"modified":"2026-09-20T09:38:31.980Z"},{"file":"كتاب بصائر - للملحدين - هيثم طلعت.pdf","title":"للملحدين - هيثم طلعت","specialty":"كتاب بصائر","specialty_label":"كتاب بصائر","icon":"◆","year":"","size":56292,"modified":"2026-09-17T12:11:37.337Z"}],"updatedAt":"2026-09-24T19:50:25.304Z","lastScan":"2026-09-24T19:50:25.304Z","count":4,"static":true};</script>
+  <script src="js/cms.js"></script>
+<script src="js/main.js"></script>
+<script src="js/studies.js"></script>
+</body>
+</html>

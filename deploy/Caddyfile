@@ -1,0 +1,5 @@
+/* استبدل النطاق باسم نطاقك وسجّل A record يوجّه له إلى عنوان الـ IP لخادمك */
+your-domain.example {
+    encode gzip
+    reverse_proxy 127.0.0.1:3000
+}

@@ -1,0 +1,17 @@
+[Unit]
+Description=Hakeem Center - Node.js web server and CMS
+After=network.target
+
+[Service]
+Type=simple
+User=hakeem
+Group=hakeem
+WorkingDirectory=/home/hakeem/hakeem-center
+ExecStart=/usr/bin/env node server.js
+Restart=always
+RestartSec=3
+Environment=NODE_ENV=production
+Environment=PORT=3000
+
+[Install]
+WantedBy=multi-user.target

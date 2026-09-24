@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة الإدارة — مركز حكيم</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<!-- شاشة الدخول -->
+<div id="loginOverlay">
+  <form class="login-card" id="loginForm">
+    <img class="login-logo" src="assets/logo.jpg" alt="شعار مركز حكيم">
+    <h1>لوحة إدارة الموقع</h1>
+    <p>تتحكم في كل محتوى صفحات الموقع — أدخل كلمة المرور للمتابعة.</p>
+    <label>اسم المستخدم
+      <input type="text" id="lgUser" value="admin" autocomplete="username">
+    </label>
+    <label>كلمة المرور
+      <input type="password" id="lgPass" autocomplete="current-password" placeholder="••••••••">
+    </label>
+    <div class="login-err" id="loginErr"></div>
+    <button type="submit" class="btn btn--gold btn--block" id="loginBtn">دخول &#8592;</button>
+    <div class="login-hint">كلمة المرور الافتراضية: <code>hakeem2026</code> — غيّرها من الإعدادات.</div>
+  </form>
+</div>
+
+<div id="app" hidden>
+  <aside class="side">
+    <div class="side-brand">
+      <span class="side-logo"><img src="assets/logo.jpg" alt="شعار"></span>
+      <div><b>إدارة حكيم</b><span>نظام تحكم كامل</span></div>
+    </div>
+    <nav class="side-nav">
+      <button class="snav active" data-tab="overview">&#9671; نظرة عامة</button>
+      <button class="snav" data-tab="content">&#9998; صفحة المحتوى</button>
+      <button class="snav" data-tab="appearance">&#9672; المظهر والشعار</button>
+      <button class="snav" data-tab="library">&#128196; مكتبة الدراسات</button>
+      <button class="snav" data-tab="backups">&#128190; النسخ الاحتياطية</button>
+      <button class="snav" data-tab="settings">&#9881; الإعدادات</button>
+    </nav>
+    <div class="side-foot">
+      <a href="index.html" target="_blank" rel="noopener">فتح الموقع &#8599;</a>
+      <button id="logoutBtn">خروج &#8656;</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="tb-title">
+        <h1 id="panelTitle">نظرة عامة</h1>
+        <span id="saveState" class="save-state">كل التغييرات محفوظة</span>
+      </div>
+      <button class="btn btn--gold" id="saveBtn" disabled>حفظ التغييرات <span class="arr">&#8595;</span></button>
+    </header>
+
+    <!-- نظرة عامة -->
+    <section class="panel active" data-panel="overview">
+      <div class="cards">
+        <div class="card"><span>رابط الموقع</span><b id="ovUrl">http://localhost:3000</b>
+          <a href="index.html" target="_blank" rel="noopener" class="btn btn--ghost">فتح الموقع &#8599;</a></div>
+        <div class="card"><span>المكتبة</span><b id="ovCount">…</b><em>دراسة وأبحاث</em></div>
+        <div class="card"><span>آخر فحص للمجلد</span><b id="ovScan">…</b><em>يراقب studies/ تلقائياً</em></div>
+        <div class="card"><span>نسخ احتياطية</span><b id="ovBackups">…</b><em>تُنشأ عند كل حفظ</em></div>
+      </div>
+      <div class="tip">
+        <b>&#9888; تنبيه الإطلاق:</b> غيّر كلمة المرور الافتراضية من تبويب <em>الإعدادات</em> قبل النشر، واحتفظ بنسخة من مجلد <code>data/</code>.
+      </div>
+    </section>
+
+    <!-- صفحة المحتوى -->
+    <section class="panel" data-panel="content">
+      <div id="contentGroups"></div>
+    </section>
+
+    <!-- المظهر والشعار -->
+    <section class="panel" data-panel="appearance">
+      <div id="appearanceGroups"></div>
+      <div class="grp">
+        <div class="grp-head"><span>&#128444;</span><h3>رئيس صورة الشعار</h3><p>ارفع صورة الشعار ليظهر في أعلى الصفحة والفوتر والواجهة الرئيسية فوراً (يُحفظ حتى من دون حفظ المحتوى).</p></div>
+        <div class="grp-body">
+          <div class="logo-preview"><img id="logoPreview" src="assets/logo.jpg" alt="الشعار الحالي"></div>
+          <div class="logo-actions">
+            <label class="btn btn--navy file-btn"><input type="file" id="logoFile" accept="image/*" hidden>اختيار صورة…</label>
+            <button class="btn btn--ghost" id="logoResetBtn">استعادة الشعار الأصلي</button>
+            <span id="logoHint" class="hint">الحجم الموصى به: 512×512 فأعلى — PNG أو JPG (الحد 4MB).</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- مكتبة الدراسات -->
+    <section class="panel" data-panel="library">
+      <div class="grp">
+        <div class="grp-head"><span>&#128228;</span><h3>رفع دراسة جديدة</h3>
+          <p>يُرفع الملف مباشرة إلى مجلد studies/ وتظهر الدراسة تلقائياً عند أول فحص. اتبع قاعدة التسمية: <code>الاختصاص - العنوان - السنة.pdf</code></p></div>
+        <div class="grp-body">
+          <div id="uploadBox" class="drop">
+            <span class="drop-ico">&#8682;</span>
+            <b>اسحب ملف PDF هنا أو انقر للاختيار</b>
+            <em>أو حدّد صيغة الاسم يدوياً</em>
+            <input type="text" id="upName" placeholder="الاختصاص - العنوان - السنة.pdf" dir="rtl">
+            <input type="file" id="upFile" accept="application/pdf,.pdf" hidden>
+          </div>
+          <div id="upStatus"></div>
+          <div class="lib-actions">
+            <button class="btn btn--navy" id="scanNowBtn">فحص المجلد الآن</button>
+            <span class="hint" id="libMeta"></span>
+          </div>
+          <table class="lib-table" id="libTable">
+            <thead><tr><th>الملف</th><th>الاختصاص</th><th>الحجم</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- النسخ الاحتياطية -->
+    <section class="panel" data-panel="backups">
+      <div class="grp">
+        <div class="grp-head"><span>&#128190;</span><h3>النسخ الاحتياطية للمحتوى</h3>
+          <p>تُنشأ نسخة تلقائياً قَبْل كل عملية حفظ أو استعادة أو إعادة ضبط. يمكنك الاستعادة بنقرة واحدة.</p></div>
+        <div class="grp-body">
+          <div class="lib-actions">
+            <button class="btn btn--danger-ghost" id="resetBtn">إعادة ضبط كامل للمحتوى الافتراضي</button>
+            <span class="hint">سيُنشأ نسخة احتياطية من الحالة الحالية قبل الضبط.</span>
+          </div>
+          <table class="lib-table">
+            <thead><tr><th>النسخة</th><th>التاريخ</th><th>الحجم</th><th></th></tr></thead>
+            <tbody id="backupsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- الإعدادات -->
+    <section class="panel" data-panel="settings">
+      <div class="grp">
+        <div class="grp-head"><span>&#9881;</span><h3>تغيير كلمة مرور الأدمن</h3>
+          <p>بعد الحفظ تُغلق كل الجلسات ويلزم الدخول بكلمة المرور الجديدة.</p></div>
+        <div class="grp-body form-col">
+          <label>كلمة المرور الحالية <input type="password" id="pwOld" autocomplete="current-password"></label>
+          <label>كلمة المرور الجديدة <input type="password" id="pwNew" minlength="8" autocomplete="new-password"></label>
+          <label>تأكيد كلمة المرور <input type="password" id="pwNew2" autocomplete="new-password"></label>
+          <div class="lib-actions"><button class="btn btn--navy" id="pwBtn">حفظ كلمة المرور</button><span class="hint" id="pwHint">8 أحرف على الأقل.</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div id="toast" hidden></div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>

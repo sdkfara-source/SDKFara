@@ -1,0 +1,11 @@
+# Serv00 — حماية الحساب من الحذف (90 يوم خمول) وإبقاء التطبيق حياً
+# الاستخدام: ssh إلى حسابه ثم:  crontab -e  وألصق السطرين بعد استبدال DOMAIN و USER
+
+# كل 10 دقائق: زيارة تعيد إيقاظ تطبيق Node (Passenger) وتمنع النوم
+*/10 * * * * curl -sk https://DOMAIN/api/status >/dev/null 2>&1
+
+# شهرياً: تسجيل دخول SSH ذاتي (يُحسب ضمن "نشاط SSH" الذي يمنع حذف الحساب بعد 90 يوماً)
+# قبلها مرة واحدة: أضف مفتاحك العام إلى authorized_keys على نفس الحساب:
+#   ssh-keygen -t ed25519 -N "" -f ~/.ssh/serv00_self
+#   mkdir -p ~/.ssh && cat ~/.ssh/serv00_self.pub >> ~/.ssh/authorized_keys
+0 3 1 * * ssh -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=10 -T USER@localhost "devil www list" >/dev/null 2>&1

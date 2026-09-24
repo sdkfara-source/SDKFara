@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منظم الميزانية الشهري 2026</title>
+<style>
+  :root {
+    --main: #0e7c5c;
+    --accent: #19a974;
+    --dark: #123c30;
+    --line: #dfe9e4;
+    --light: #f2f8f5;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Segoe UI", "Tahoma", "Noto Kufi Arabic", Arial, sans-serif;
+    background: #f4f6f8;
+    color: #23363a;
+    line-height: 1.5;
+  }
+  .cover {
+    max-width: 793px; margin: 32px auto;
+    background: #fff; padding: 48px;
+    box-shadow: 0 6px 24px rgba(0,0,0,.12);
+    text-align: center;
+    border-radius: 4px;
+  }
+  .cover h1 { color: var(--dark); font-size: 34px; margin-bottom: 8px; }
+  .cover p { color: #5b6b7d; font-size: 15px; }
+  .month {
+    max-width: 793px; margin: 24px auto;
+    background: #fff; padding: 32px;
+    box-shadow: 0 6px 24px rgba(0,0,0,.12);
+    page-break-after: always;
+  }
+  .month-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    border-bottom: 3px solid var(--main); padding-bottom: 12px; margin-bottom: 20px;
+  }
+  .month-head h2 { color: var(--dark); font-size: 24px; }
+  .month-head input { border: none; border-bottom: 1px dashed #9db8ae; padding: 4px 8px; font-size: 15px; background: transparent; }
+  .row {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1.2fr;
+    gap: 10px; align-items: center;
+    padding: 9px 10px; border-bottom: 1px solid var(--line);
+    font-size: 14px;
+  }
+  .row.head {
+    background: var(--light); font-weight: 700; color: var(--dark);
+    border-top: 1px solid var(--line); border-bottom: 2px solid var(--line);
+  }
+  .row input {
+    border: 1px solid #cfe0d9; border-radius: 6px;
+    padding: 5px 8px; width: 100%; font-size: 13.5px;
+  }
+  .total {
+    color: var(--main); font-weight: 700;
+  }
+  .sum-area { margin-top: 18px; background: var(--light); border-radius: 8px; padding: 14px 18px; }
+  .sum-row { display: flex; justify-content: space-between; font-size: 14.5px; padding: 3px 0; }
+  .sum-row b { color: var(--dark); }
+  .notes { margin-top: 16px; }
+  .notes textarea { width: 100%; min-height: 48px; border: 1px solid var(--line); border-radius: 6px; padding: 8px; font-family: inherit; font-size: 13px; }
+  @media print {
+    body { background: #fff; }
+    .cover, .month { margin: 0 auto; box-shadow: none; }
+    @page { size: A4; margin: 12mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="cover">
+    <h1>منظم الميزانية الشهري 2026</h1>
+    <p>14 صفحة قابلة للطباعة — تابع دخلك ومصاريفك وادخارك طوال العام</p>
+  </div>
+
+  <div class="month">
+    <div class="month-head">
+      <h2>يناير</h2>
+      <input type="text" placeholder="اسم الدخل الشهري (مثال: الراتب)">
+    </div>
+    <div class="row head"><span>البند</span><span>المخصص</span><span>المصروف</span><span>المتبقي</span><span>ملاحظات</span></div>
+    <div class="row"><span>الإيجار / السكن</span><input type="text"><input type="text"><input type="text"><input type="text"></div>
+    <div class="row"><span>الطعام</span><input type="text"><input type="text"><input type="text"><input type="text"></div>
+    <div class="row"><span>المواصلات</span><input type="text"><input type="text"><input type="text"><input type="text"></div>
+    <div class="row"><span>الإنترنت والاتصالات</span><input type="text"><input type="text"><input type="text"><input type="text"></div>
+    <div class="row"><span>الأدوية / الصحة</span><input type="text"><input type="text"><input type="text"><input type="text"></div>
+    <div class="row"><span>المدارس / التعليم</span><input type="text"><input type="text"><input type="text"><input type="text"></div>
+    <div class="row"><span>الادخار</span><input type="text"><input type="text"><input type="text"><input type="text"></div>
+    <div class="row"><span>الترفيه</span><input type="text"><input type="text"><input type="text"><input type="text"></div>
+    <div class="row"><span>متفرقات</span><input type="text"><input type="text"><input type="text"><input type="text"></div>
+    <div class="row total"><span>الإجمالي</span><span></span><span></span><span></span><span></span></div>
+    <div class="sum-area">
+      <div class="sum-row"><span>الدخل</span><b>______________</b></div>
+      <div class="sum-row"><span>إجمالي المصروفات</span><b>______________</b></div>
+      <div class="sum-row"><span>المتبقي = الادخار الفعلي</span><b>______________</b></div>
+    </div>
+    <div class="notes"><textarea placeholder="ملاحظات الشهر، أهداف الادخار، ماذا ننجح الشهر القادم..."></textarea></div>
+  </div>
+
+  <div class="month">
+    <div class="month-head"><h2>فبراير</h2><input type="text" placeholder="اسم الدخل"></div>
+    <div class="row head"><span>البند</span><span>المخصص</span><span>المصروف</span><span>المتبقي</span><span>ملاحظات</span></div>
+    <div class="row"><span>الإيجار / السكن</span><input type="text"><input type="text"><input type="text"><input type="text"></div>
+    <div class="row"><span>الطعام</span><input type="text"><input type="text"><input type="text"><input type="text"></div>
+    <div class="row"><span>المواصلات</span><input type="text"><input type="text"><input type="text"><input type="text"></div>
+    <div class="row"><span>الإنترنت والاتصالات</span><input type="text"><input type="text"><input type="text"><input type="text"></div>
+    <div class="row"><span>الأدوية / الصحة</span><input type="text"><input type="text"><input type="text"><input type="text"></div>
+    <div class="row"><span>المدارس / التعليم</span><input type="text"><input type="text"><input type="text"><input type="text"></div>
+    <div class="row"><span>الادخار</span><input type="text"><input type="text"><input type="text"><input type="text"></div>
+    <div class="row"><span>الترفيه</span><input type="text"><input type="text"><input type="text"><input type="text"></div>
+    <div class="row"><span>متفرقات</span><input type="text"><input type="text"><input type="text"><input type="text"></div>
+    <div class="row total"><span>الإجمالي</span><span></span><span></span><span></span><span></span></div>
+    <div class="sum-area">
+      <div class="sum-row"><span>الدخل</span><b>______________</b></div>
+      <div class="sum-row"><span>إجمالي المصروفات</span><b>______________</b></div>
+      <div class="sum-row"><span>المتبقي = الادخار الفعلي</span><b>______________</b></div>
+    </div>
+    <div class="notes"><textarea placeholder="ملاحظات الشهر"></textarea></div>
+  </div>
+
+  <div style="max-width:793px;margin:0 auto;padding:16px;text-align:center;color:#5b6b7d;font-size:13px">
+    أكمل بقية الأشهر (مارس–ديسمبر) بنسخ هذا القالب: افتح الملف، بدّل اسم الشهر، واطبعه. كل صفحة = صفحة A4 كاملة.
+  </div>
+</body>
+</html>

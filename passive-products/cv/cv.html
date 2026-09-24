@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>السيرة الذاتية — قالب احترافي 2026</title>
+<style>
+  :root {
+    --main: #1f3a5f;
+    --accent: #3b82c4;
+    --light: #eef3f8;
+    --text: #22303f;
+    --muted: #5b6b7d;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Segoe UI", "Tahoma", "Noto Kufi Arabic", Arial, sans-serif;
+    background: #f4f6f8;
+    color: var(--text);
+    line-height: 1.65;
+  }
+  .sheet {
+    max-width: 793px; /* A4 */
+    margin: 24px auto;
+    background: #fff;
+    box-shadow: 0 6px 24px rgba(0,0,0,.12);
+    overflow: hidden;
+  }
+  header {
+    background: var(--main);
+    color: #fff;
+    padding: 40px 48px 32px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: center;
+  }
+  .name { font-size: 30px; font-weight: 700; letter-spacing: .5px; }
+  .role { font-size: 16px; color: #cfe0f5; margin-top: 4px; }
+  .contact { font-size: 12.5px; color: #dbe7f6; line-height: 1.7; text-align: left; }
+  main { display: grid; grid-template-columns: 255px 1fr; }
+  aside { background: var(--light); padding: 28px 20px; border-left: 1px solid #dde5ee; }
+  h2 {
+    font-size: 15px; color: var(--main);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 6px; margin: 20px 0 12px;
+  }
+  aside h2:first-of-type { margin-top: 0; }
+  .chip { display: inline-block; background: #dceaf7; color: var(--main); padding: 3px 10px; border-radius: 999px; font-size: 12px; margin: 3px 3px 3px 0; }
+  .skill + .skill { margin-top: 10px; }
+  .bar { height: 6px; background: #d5e2f0; border-radius: 999px; margin-top: 4px; overflow: hidden; }
+  .bar span { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
+  .edu { margin-bottom: 12px; }
+  .edu h4 { font-size: 14px; color: var(--main); }
+  .edu p { font-size: 12.5px; color: var(--muted); }
+  section { padding: 28px 30px; }
+  .job { margin-bottom: 18px; }
+  .job .title { font-size: 15px; font-weight: 700; color: var(--main); }
+  .job .meta { font-size: 12.5px; color: var(--muted); margin-bottom: 5px; }
+  .job ul { padding-right: 18px; font-size: 13.5px; }
+  .job li { margin-bottom: 3px; }
+  .lang-g { display: flex; justify-content: space-between; font-size: 13.5px; margin-bottom: 6px; }
+  .fa-check { color: var(--accent); }
+  @media print {
+    body { background: #fff; }
+    .sheet { margin: 0; box-shadow: none; max-width: 100%; }
+    @page { size: A4; margin: 0; }
+  }
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <header>
+      <div>
+        <div class="name">الاسم الكامل</div>
+        <div class="role">المسمى الوظيفي / التخصص</div>
+      </div>
+      <div class="contact">
+        📧 your.email@example.com<br>
+        📱 +20 1XX XXX XXXX<br>
+        📍 المدينة، الدولة<br>
+        🔗 linkedin.com/in/yourname
+      </div>
+    </header>
+    <main>
+      <aside>
+        <h2>التعليم</h2>
+        <div class="edu">
+          <h4>اسم الشهادة</h4>
+          <p>اسم الجامعة — سنة إلى سنة</p>
+        </div>
+        <div class="edu">
+          <h4>شهادة / دورة</h4>
+          <p>الجهة المانحة — السنة</p>
+        </div>
+
+        <h2>المهارات</h2>
+        <div class="skill">مهارة رئيسية <div class="bar"><span style="width:90%"></span></div></div>
+        <div class="skill">مهارة رئيسية ثانية <div class="bar"><span style="width:75%"></span></div></div>
+        <div class="skill">مهارة رئيسية ثالثة <div class="bar"><span style="width:85%"></span></div></div>
+
+        <h2>اللغات</h2>
+        <div class="lang-g"><span>العربية</span><span>اللغة الأم</span></div>
+        <div class="lang-g"><span>الإنجليزية</span><span>مستوى (B2 / C1)</span></div>
+        <div class="lang-g"><span>لغة أخرى</span><span>مستوى</span></div>
+      </aside>
+      <section>
+        <h2>الملخص المهني</h2>
+        <p style="font-size:13.5px">جملة أو اثنتان تصفان خبرتك وأقوى إنجاز لديك: "مختص في X بخبرة Y، قاد مشاريع زادت الإيرادات بنسبة Z%..."</p>
+
+        <h2>الخبرات العملية</h2>
+        <div class="job">
+          <div class="title">المسمى الوظيفي</div>
+          <div class="meta">اسم الشركة — المدينة | السنة إلى السنة</div>
+          <ul>
+            <li>إنجاز رقم 1 بأرقام ملموسة (مثال: رفع المبيعات بنسبة 20%).</li>
+            <li>إنجاز رقم 2 متعلق بمسؤولية رئيسية في وظيفتك.</li>
+            <li>إنجاز رقم 3 يظهر مهارة فريق أو قيادة.</li>
+          </ul>
+        </div>
+        <div class="job">
+          <div class="title">المسمى الوظيفي السابق</div>
+          <div class="meta">اسم الشركة — المدينة | السنة إلى السنة</div>
+          <ul>
+            <li>إنجاز رقم 1.</li>
+            <li>إنجاز رقم 2.</li>
+          </ul>
+        </div>
+
+        <h2>المشاريع</h2>
+        <div class="job">
+          <div class="title">اسم المشروع</div>
+          <ul>
+            <li>وصف مختصر لما أنجزته ودوره — واربطه بنتيجة قابلة للقياس.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

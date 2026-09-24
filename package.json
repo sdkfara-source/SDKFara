@@ -1,0 +1,12 @@
+{
+  "name": "hakeem-center",
+  "version": "1.0.0",
+  "description": "مركز حكيم للدراسات والبحوث — موقع المكتبة البحثية الآلي (دمشق)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}

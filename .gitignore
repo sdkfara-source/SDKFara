@@ -1,0 +1,8 @@
+server.log
+server.log.err
+start.bat
+node_modules/
+data/backups/
+data/config.json
+studies/
+*.tar.gz
