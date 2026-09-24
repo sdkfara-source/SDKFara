@@ -4,5 +4,6 @@ start.bat
 node_modules/
 data/backups/
 data/config.json
+data/drive.json
 studies/
 *.tar.gz

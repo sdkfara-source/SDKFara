@@ -130,7 +130,7 @@
       $("#studiesEmpty .big").innerHTML = "&#9632;";
       $("#studiesEmpty h3").textContent = "المكتبة فارغة حالياً";
       $("#studiesEmpty p").textContent =
-        "ضع ملفات PDF في مجلد studies/ بالصيغة: اختصاص - العنوان - السنة.pdf، وستظهر هنا تلقائياً.";
+        "أضِف ملفات PDF بصيغة: اختصاص - العنوان - السنة.pdf، وستظهر هنا تلقائياً.";
     } else {
       $("#studiesEmpty .big").innerHTML = "&#9638;";
       $("#studiesEmpty h3").textContent = "لا توجد نتائج مطابقة";
@@ -144,7 +144,13 @@
     }
 
     grid.innerHTML = items.map(function (s) {
-      var url = "studies/" + encodeURIComponent(s.file);
+      // إن كانت الدراسة مستضافة على Google Drive نستخدم روابط Drive، وإلا الملف المحلي
+      var view = s.driveId
+        ? "https://drive.google.com/file/d/" + s.driveId + "/preview"
+        : "studies/" + encodeURIComponent(s.file);
+      var dl = s.driveId
+        ? "https://drive.google.com/uc?export=download&id=" + s.driveId
+        : view + "?d=1";
       return (
         '<article class="study-card" data-reveal>' +
         '<div class="sc-top">' +
@@ -154,8 +160,8 @@
         '<h3>' + esc(s.title) + "</h3>" +
         '<div class="sc-file"><span class="pdf">PDF</span> <span>' + esc(s.file) + "</span> <span>&nbsp;&middot;&nbsp; " + fmtKb(s.size) + "</span></div>" +
         '<div class="sc-actions">' +
-        '<a class="btn btn--view" href="' + url + '" target="_blank" rel="noopener">معاينة &#8599;</a>' +
-        '<a class="btn btn--gold" href="' + url + "?d=1" + '" download>تحميل PDF <span class="arr">&#8595;</span></a>' +
+        '<a class="btn btn--view" href="' + view + '" target="_blank" rel="noopener">معاينة &#8599;</a>' +
+        '<a class="btn btn--gold" href="' + dl + '" download>تحميل PDF <span class="arr">&#8595;</span></a>' +
         "</div>" +
         "</article>"
       );

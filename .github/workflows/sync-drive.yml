@@ -1,0 +1,60 @@
+# مزامنة مكتبة الدراسات من Google Drive إلى GitHub Pages (docs/)
+#
+# الإعداد (مرة واحدة):
+#   1) أنشئ مجلداً على Google Drive، ارفع فيه ملفات PDF بالصيغة:
+#      اختصاص - العنوان - السنة.pdf
+#      ثم شاركه: Anyone with the link (Viewer) — مشاركة عامة بدون تسجيل دخول.
+#      انسخ Folder ID من رابط المجلد: https://drive.google.com/drive/folders/<FOLDER_ID>
+#   2) على console.cloud.google.com: فعّل Google Drive API وأنشئ API key.
+#   3) في إعدادات الريبو: Settings → Secrets and variables → Actions → New repository secret:
+#      - GOOGLE_API_KEY   = مفتاح API
+#      - DRIVE_FOLDER_ID  = معرف مجلد Drive
+#   4) فعّل GitHub Pages من Settings → Pages → Source: Deploy from a branch → main /docs
+#
+# عند كل تشغيل: يقرأ الموقع قائمة PDF من المجلد، يعيد بناء docs/ تلقائياً ويرفع التغييرات.
+# (الدفعات التي تغيّر docs/ فقط تُتجاهل لتجنّب التكرار اللانهائي)
+name: Sync Google Drive → GitHub Pages
+
+on:
+  schedule:
+    - cron: "0 */6 * * *" # كل 6 ساعات
+  workflow_dispatch: # زر "Run workflow" يدوياً من تبويب Actions
+  push:
+    branches: [main]
+    paths-ignore: ["docs/**"] # دفعات البوت (docs/ فقط) لا تعيد التشغيل
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    name: مزامنة الدراسات من Google Drive
+    runs-on: ubuntu-latest
+    steps:
+      - name: سحب الكود
+        uses: actions/checkout@v4
+
+      - name: إعداد Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: بناء النسخة الثابتة من Google Drive
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          DRIVE_FOLDER_ID: ${{ secrets.DRIVE_FOLDER_ID }}
+        run: node scripts/build_static.mjs
+
+      - name: نشر التحديثات إلى docs/
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/
+          if git diff --cached --quiet; then
+            echo "لا تغييرات — المكتبة محدّثة بالفعل."
+            exit 0
+          fi
+          git commit -m "ci: مزامنة المكتبة من Google Drive"
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" HEAD:main
