@@ -133,6 +133,11 @@ async function main() {
   const studies = [];
   const drive = driveConfig();
 
+  if (!drive && !fs.existsSync(STUDIES)) {
+    console.log("لا يوجد مصدر دراسات (لا إعداد Google Drive ولا مجلد studies/ محلي) — تخطي البناء.");
+    return;
+  }
+
   if (drive) {
     console.log("مصدر الدراسات: Google Drive (folderId=" + drive.folderId + ")");
     const files = await listDrivePdfs(drive);
