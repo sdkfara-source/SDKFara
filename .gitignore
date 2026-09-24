@@ -5,5 +5,5 @@ node_modules/
 data/backups/
 data/config.json
 data/drive.json
-studies/
+/studies/
 *.tar.gz
