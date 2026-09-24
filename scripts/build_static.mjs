@@ -124,6 +124,13 @@ async function listDrivePdfs(cfg) {
 }
 
 async function main() {
+  const drive = driveConfig();
+
+  if (!drive && !fs.existsSync(STUDIES)) {
+    console.log("لا يوجد مصدر دراسات (لا إعداد Google Drive ولا مجلد studies/ محلي) — تخطي البناء دون تغيير docs/.");
+    return;
+  }
+
   copyDir(SRC, OUT);
   rm(path.join(OUT, "admin.html"));
   rm(path.join(OUT, "js", "admin.js"));
@@ -131,12 +138,6 @@ async function main() {
   fs.writeFileSync(path.join(OUT, ".nojekyll"), "");
 
   const studies = [];
-  const drive = driveConfig();
-
-  if (!drive && !fs.existsSync(STUDIES)) {
-    console.log("لا يوجد مصدر دراسات (لا إعداد Google Drive ولا مجلد studies/ محلي) — تخطي البناء.");
-    return;
-  }
 
   if (drive) {
     console.log("مصدر الدراسات: Google Drive (folderId=" + drive.folderId + ")");
