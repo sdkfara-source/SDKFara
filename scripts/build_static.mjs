@@ -15,6 +15,7 @@ const DATA = path.join(ROOT, "data");
 const STUDIES = path.join(ROOT, "studies");
 const OUT = path.join(ROOT, "docs");
 const DRIVE_API = "https://www.googleapis.com/drive/v3";
+const DRIVE_FOLDER_VIEW = "https://drive.google.com/embeddedfolderview";
 
 const SPECIALTY_META = [
   { keys: ["الاقتصاد", "اقتصاد", "اقتصادية", "المالية", "التجارية", "النقد"], label: "الاقتصاد والتنمية", icon: "◆" },
@@ -91,36 +92,83 @@ function copyDir(from, to) {
 function rm(p) { try { fs.rmSync(p, { force: true }); } catch (_) { } }
 
 // يُرجع إعداد Google Drive إن وُجد، وإلا null (نُلجئ حينها إلى مجلد studies/ المحلي)
+// يكفي وجود DRIVE_FOLDER_ID (مُشارَك عام) لتشغيل المزامنة بلا مفتاح API.
+// GOOGLE_API_KEY اختياري ويُستخدم فقط للاستعلام الرسمي (أسماء/حجوم أدق).
 function driveConfig() {
-  if (process.env.GOOGLE_API_KEY && process.env.DRIVE_FOLDER_ID) {
-    return { apiKey: process.env.GOOGLE_API_KEY, folderId: process.env.DRIVE_FOLDER_ID };
+  if (process.env.DRIVE_FOLDER_ID) {
+    return { folderId: process.env.DRIVE_FOLDER_ID, apiKey: process.env.GOOGLE_API_KEY || "" };
   }
   try {
     const cfg = JSON.parse(fs.readFileSync(path.join(DATA, "drive.json"), "utf8"));
-    if (cfg.apiKey && cfg.folderId) return { apiKey: cfg.apiKey, folderId: cfg.folderId };
+    if (cfg.folderId) return { folderId: cfg.folderId, apiKey: cfg.apiKey || "" };
   } catch (_) { }
   return null;
 }
 
-// يسحب قائمة ملفات PDF من مجلد Drive عام (قابل للقراءة بدون تسجيل دخول عبر API key)
+// يسحب قائمة ملفات PDF من مجلد Drive عام في خطوتين:
+//   1) إن وُجد مفتاح API: استعلام رسمي (أسماء/معرّفات/أحجام/تواريخ).
+//   2) بلا مفتاح (احتياط): يقرأ صفحة embedded public shared العامة ولا يحتاج أي تسجيل دخول أو مفتاح.
+//      المرأة: نشاط الملفات واسمها الظاهر — موثوقة للفرز والتبويب، والحجم إرشادي من ترويسة السيرفر.
 async function listDrivePdfs(cfg) {
-  const params = new URLSearchParams();
-  params.set("q", `'${cfg.folderId}' in parents and trashed=false and mimeType='application/pdf'`);
-  params.set("fields", "files(id,name,size,modifiedTime,webViewLink)");
-  params.set("key", cfg.apiKey);
-  let res;
+  if (cfg.apiKey) {
+    const params = new URLSearchParams();
+    params.set("q", `'${cfg.folderId}' in parents and trashed=false and mimeType='application/pdf'`);
+    params.set("fields", "files(id,name,size,modifiedTime,webViewLink)");
+    params.set("key", cfg.apiKey);
+    let res;
+    try {
+      res = await fetch(`${DRIVE_API}/files?${params}`, { headers: { accept: "application/json" } });
+    } catch (err) {
+      throw new Error("تعذّر الاتصال بـ Google Drive: " + (err && err.message ? err.message : String(err)));
+    }
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      const msg = (body.error && body.error.message) || res.statusText || String(res.status);
+      if (res.status === 403 || res.status === 400) {
+        console.warn("API key لم يخرج القائمة — التحويل إلى الوضع العام: " + msg);
+      } else {
+        throw new Error("فشل Google Drive (" + res.status + "): " + msg +
+          "\nتأكد أن المجلد مشارَك مع أي شخص يملك الرابط (Anyone with the link) وأن مفتاح API مفعّل عليه Google Drive API.");
+      }
+    } else {
+      return Array.isArray(body.files) ? body.files : [];
+    }
+  }
+  return listDrivePdfsPublic(cfg.folderId);
+}
+
+// الوضع العام (بلا API key): يقرأ صفحة "تعريف أي شخص برابط" pubish الشائعة
+// ويكرر inline HTML بحثاً عن إدخالات .flip-entry (المعرّف + العنوان الظاهر).
+async function listDrivePdfsPublic(folderId) {
+  const url = `${DRIVE_FOLDER_VIEW}?id=${encodeURIComponent(folderId)}`;
+  let html;
   try {
-    res = await fetch(`${DRIVE_API}/files?${params}`, { headers: { accept: "application/json" } });
+    const res = await fetch(url, { headers: { "user-agent": "Mozilla/5.0", accept: "text/html,*/*" } });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    html = await res.text();
   } catch (err) {
-    throw new Error("تعذّر الاتصال بـ Google Drive: " + (err && err.message ? err.message : String(err)));
+    throw new Error("تعذّر قراءة مجلد Drive العام (folderview): " + (err && err.message ? err.message : String(err)));
   }
-  const body = await res.json().catch(() => ({}));
-  if (!res.ok) {
-    const msg = (body.error && body.error.message) || res.statusText || String(res.status);
-    throw new Error("فشل Google Drive (" + res.status + "): " + msg +
-      "\nتأكد أن المجلد مشارَك مع أي شخص يملك الرابط (Anyone with the link) وأن مفتاح API مفعّل عليه Google Drive API.");
+  const files = [];
+  const re = /<div class="flip-entry" id="entry-([^"]+)".*?flip-entry-title">([^<]+)<\/div>/gs;
+  let m;
+  while ((m = re.exec(html)) !== null) {
+    const id = m[1].trim();
+    const name = m[2].replace(/&amp;/g, "&").replace(/<\/?[^>]+>/g, "").trim();
+    if (!id || !/\.pdf$/i.test(name)) continue;
+    // حجم إرشادي عبر ترويسة Content-Length (متابعة إعادة التوجيه ثم قراءة الترويسة النهائية)
+    let size = 0;
+    try {
+      let head = await fetch("https://drive.google.com/uc?export=download&id=" + id, { method: "HEAD", redirect: "follow" });
+      const len = head.headers.get("content-length");
+      if (len) size = Number(len);
+    } catch (_) { }
+    files.push({ id, name, size, modifiedTime: null });
   }
-  return Array.isArray(body.files) ? body.files : [];
+  if (files.length === 0) {
+    throw new Error("لم يُعثر على ملفات PDF في المجلد العام — تأكد من صلاحية FOLDER_ID وأن مشاركته Anyone with the link.");
+  }
+  return files;
 }
 
 async function main() {

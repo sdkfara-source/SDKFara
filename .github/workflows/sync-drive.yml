@@ -5,13 +5,13 @@
 #      اختصاص - العنوان - السنة.pdf
 #      ثم شاركه: Anyone with the link (Viewer) — مشاركة عامة بدون تسجيل دخول.
 #      انسخ Folder ID من رابط المجلد: https://drive.google.com/drive/folders/<FOLDER_ID>
-#   2) على console.cloud.google.com: فعّل Google Drive API وأنشئ API key.
-#   3) في إعدادات الريبو: Settings → Secrets and variables → Actions → New repository secret:
-#      - GOOGLE_API_KEY   = مفتاح API
-#      - DRIVE_FOLDER_ID  = معرف مجلد Drive
-#   4) فعّل GitHub Pages من Settings → Pages → Source: Deploy from a branch → main /docs
+#   2) عيّن سر الريبو (Settings → Secrets and variables → Actions → New repository secret):
+#      - DRIVE_FOLDER_ID = معرف مجلد Drive          ← مطلوب (المجلد عام)
+#      - GOOGLE_API_KEY  = مفتاح API (اختياري)       ← يُحسّن البيانات فقط، المزامنة تعمل بدونه
+#   3) فعّل GitHub Pages من Settings → Pages → Source: Deploy from a branch → main /docs
 #
-# عند كل تشغيل: يقرأ الموقع قائمة PDF من المجلد، يعيد بناء docs/ تلقائياً ويرفع التغييرات.
+# عند كل تشغيل: يقرأ الموقع قائمة PDF من المجلد (بلا مفتاح إذا لم يُضبط)،
+# يعيد بناء docs/ تلقائياً ويرفع التغييرات.
 # (الدفعات التي تغيّر docs/ فقط تُتجاهل لتجنّب التكرار اللانهائي)
 name: Sync Google Drive → GitHub Pages
 
@@ -42,7 +42,7 @@ jobs:
       - name: بناء النسخة الثابتة من Google Drive
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-          DRIVE_FOLDER_ID: ${{ secrets.DRIVE_FOLDER_ID }}
+          DRIVE_FOLDER_ID: ${{ secrets.DRIVE_FOLDER_ID || vars.DRIVE_FOLDER_ID || '1z5Lx_4A2gwKNfqKYNWQMmV6r8vJZvII9' }}
         run: node scripts/build_static.mjs
 
       - name: نشر التحديثات إلى docs/
