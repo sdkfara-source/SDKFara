@@ -51,7 +51,7 @@
     s.setProperty("--gold-600", goldSoft);
     s.setProperty("--gold-700", mix(goldSoft, k, 0.15));
     s.setProperty("--ivory", ivory);
-    s.setProperty("--ivory-2", mix(ivory, w, 0.55));
+    s.setProperty("--ivory-2", mix(navyDark, w, 0.04));
   }
 
   function setText(el, val) {

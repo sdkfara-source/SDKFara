@@ -119,10 +119,10 @@
     "admin_label": "لوحة الإدارة"
   },
   "theme": {
-    "navy": "#151A25",
-    "navy_dark": "#0E1420",
+    "navy": "#101827",
+    "navy_dark": "#0B111D",
     "gold": "#C9A96A",
     "gold_soft": "#8F7B4C",
-    "ivory": "#F7F3EA"
+    "ivory": "#F3ECD9"
   }
 }
