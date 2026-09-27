@@ -83,7 +83,7 @@
       (function tick(now) {
         var p = Math.min((now - start) / dur, 1);
         var eased = 1 - Math.pow(1 - p, 3);
-        el.textContent = Math.round(target * eased).toLocaleString("en-US");
+        el.textContent = Math.round(target * eased).toString();
         if (p < 1) requestAnimationFrame(tick);
       })(start);
     });
