@@ -17,7 +17,7 @@ name: Sync Google Drive → GitHub Pages
 
 on:
   schedule:
-    - cron: "0 */6 * * *" # كل 6 ساعات
+    - cron: "*/5 * * * *" # كل 5 دقائق (فحص من الخادم، بلا حاجة لجهاز المستخدم)
   workflow_dispatch: # زر "Run workflow" يدوياً من تبويب Actions
   push:
     branches: [main]

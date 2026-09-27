@@ -7,7 +7,7 @@
 
   var state = {
     content: null,
-    logo: "/assets/logo.jpg",
+    logo: "/assets/logo.png",
     dirty: false
   };
 
@@ -25,11 +25,15 @@
     toast._h = setTimeout(function () { t.hidden = true; }, isErr ? 5000 : 2600);
   }
   function api(method, url, body) {
+    var ctrl = new AbortController();
+    var timer = setTimeout(function () { ctrl.abort(); }, 15000);
     return fetch(url, {
       method: method,
       headers: body !== undefined ? { "Content-Type": "application/json" } : undefined,
-      body: body !== undefined ? JSON.stringify(body) : undefined
+      body: body !== undefined ? JSON.stringify(body) : undefined,
+      signal: ctrl.signal
     }).then(function (r) {
+      clearTimeout(timer);
       return r.json().then(function (d) {
         if (!r.ok) throw new Error(d && d.error ? d.error : "HTTP " + r.status);
         return d;
@@ -37,11 +41,31 @@
         if (e instanceof SyntaxError) throw new Error("HTTP " + r.status);
         throw e;
       });
+    }, function (e) {
+      clearTimeout(timer);
+      if (e && e.name === "AbortError") throw new Error("الخادم لم يستجب — تأكد أنه يعمل وأعد المحاولة.");
+      throw e;
     });
   }
 
   /* ============ الدخول ============ */
   function bindLogin() {
+    var form = $("#loginForm");
+    var pw = $("#lgPass");
+    var toggle = $("#pwToggle");
+    if (toggle && pw) {
+      toggle.addEventListener("click", function () {
+        var show = pw.type === "password";
+        pw.type = show ? "text" : "password";
+        toggle.title = show ? "إخفاء كلمة المرور" : "إظهار كلمة المرور";
+        toggle.setAttribute("aria-label", toggle.title);
+        var open = document.getElementById("pwEyeOpen");
+        var slash = document.getElementById("pwEyeSlash");
+        if (open) open.style.display = show ? "none" : "";
+        if (slash) slash.style.display = show ? "" : "none";
+        pw.focus();
+      });
+    }
     var form = $("#loginForm");
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -60,7 +84,21 @@
   function enterApp() {
     $("#loginOverlay").hidden = true;
     $("#app").hidden = false;
-    loadAll();
+    try { loadAll(); }
+    catch (err) {
+      $("#loginErr").textContent = "فشل تحميل اللوحة: " + (err && err.message ? err.message : err);
+      $("#loginOverlay").hidden = false;
+      $("#app").hidden = true;
+    }
+  }
+
+  /* تحديث كل مواضع اللوغو (شاشة الدخول، الشريط، المعاينة) بالشعار الحالي */
+  function applyLogoToAll(src) {
+    if (!src) return;
+    ["loginLogo", "sideLogo", "logoPreview"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.src = src;
+    });
   }
 
   /* ============ تحميل الحالة العامة ============ */
@@ -75,6 +113,7 @@
       renderOverview(d[1]);
       renderContent();
       applyThemeFields();
+      applyLogoToAll(state.logo);
       $("#logoPreview").src = state.logo;
       loadLibrary();
       loadBackups();

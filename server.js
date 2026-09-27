@@ -2,7 +2,7 @@
 /* ============================================================
    مركز حكيم للدراسات والبحوث — خادم الموقع ونظام الإدارة
    - يخدم واجهة الموقع من public/
-   - فحص متلقائي لمجلد studies/ كل 4 ساعات + فوري عند التغيير
+   - فحص متلقائي لمجلد studies/ كل 5 دقائق + فوري عند التغيير
    - نظام محتوى (CMS) قابلاً للتحرير من لوحة الإدارة
    - مصادقة الأدمن + نسخ احتياطية + استعادة + رفع شعار
    - بدون أي تبعيات خارجية (Node فقط)
@@ -17,7 +17,7 @@ const STATIC_DIR = process.env.STATIC_DIR || "public";
 const PUBLIC = path.join(ROOT, STATIC_DIR);
 const DATA = path.join(ROOT, "data");
 const STUDIES_DIR = path.join(ROOT, "studies");
-const SCAN_INTERVAL = 4 * 60 * 60 * 1000; // 4 ساعات
+const SCAN_INTERVAL = 5 * 60 * 1000; // 5 دقائق (فحص ذاتي من الخادم بلا حاجة لجهاز المستخدم)
 const PORT = process.env.PORT || 3000;
 const MAX_LOGO_BYTES = 4 * 1024 * 1024;
 const MAX_BACKUPS = 25;
@@ -150,7 +150,9 @@ const SPECIALTY_META = [
   { keys: ["اجتماع", "الاجتماع", "المجتمع", "ديموغرافي"], label: "الدراسات الاجتماعية", icon: "☺" },
   { keys: ["تاريخ", "التاريخ"], label: "التاريخ والذاكرة الوطنية", icon: "◆" },
   { keys: ["طاقة", "الطاقة", "كهرباء", "نفط"], label: "الطاقة والبنية التحتية", icon: "⚡" },
-  { keys: ["صحة", "الصحة", "تعليم", "التعليم"], label: "الصحة والتنمية", icon: "✚" }
+  { keys: ["صحة", "الصحة", "تعليم", "التعليم"], label: "الصحة والتنمية", icon: "✚" },
+  { keys: ["علوم عسكرية", "عسكرية", "العسكرية", "الدفاع", "دفاع", "الجيش", "الأمن", "استخبارات"], label: "العلوم العسكرية والأمنية", icon: "⬟" },
+  { keys: ["علاقات دولية", "العلاقات الدولية", "الخارجية", "الدولية", "سياسة خارجية"], label: "العلاقات الدولية", icon: "✈" }
 ];
 function specialtyInfo(raw) {
   if (!raw) return { label: "دراسات عامة", icon: "◆" };
@@ -307,8 +309,8 @@ function send(res, code, ct, body, extra) {
   res.writeHead(code, Object.assign({ "Content-Type": ct, "Cache-Control": "no-cache", "X-Content-Type-Options": "nosniff", "X-Frame-Options": "SAMEORIGIN" }, extra || {}));
   res.end(body);
 }
-function sendJson(res, code, obj) {
-  send(res, code, "application/json; charset=utf-8", JSON.stringify(obj));
+function sendJson(res, code, obj, extra) {
+  send(res, code, "application/json; charset=utf-8", JSON.stringify(obj), extra);
 }
 function secureName(name) {
   if (!name) return null;
@@ -522,6 +524,18 @@ const server = http.createServer((req, res) => {
   });
 });
 
+/* ============ المطالعة اليومية (موصولة بأول تشغيل في اليوم) ============ */
+function startDailyStudy() {
+  try {
+    const { spawn } = require("child_process");
+    const script = require("path").join(__dirname, "scripts", "daily_study.mjs");
+    const child = spawn(process.execPath, [script], { stdio: "inherit", windowsHide: true });
+    child.on("error", (e) => { console.log("daily_study: تعذر بدء السكربت:", e.message); });
+  } catch (e) {
+    console.log("daily_study: خطأ غير متوقع:", e.message);
+  }
+}
+
 /* ============ السجلات ============ */
 function log(...args) {
   const t = new Date().toLocaleString("ar-SY", { hour12: false });
@@ -538,9 +552,11 @@ server.listen(PORT, () => {
   console.log("    الصفحة:   public/      |   الدراسات: studies/");
   console.log("    الإدارة:  http://localhost:" + PORT + "/admin.html");
   console.log("    الفحص التلقائي: كل 4 ساعات (+ فوري عند التغيير)");
+  console.log("    المطالعة اليومية: تُضاف دراسة إلى studies/ عند أول تشغيل في اليوم.");
   console.log("    نسخ احتياطية تلقائية للمحتوى عند كل حفظ.");
   console.log("");
   startScheduler();
+  startDailyStudy();
 });
 
 process.on("SIGINT", () => { clearInterval(scanTimer); process.exit(0); });

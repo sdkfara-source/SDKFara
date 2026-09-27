@@ -25,7 +25,9 @@ const SPECIALTY_META = [
   { keys: ["اجتماع", "الاجتماع", "المجتمع", "ديموغرافي"], label: "الدراسات الاجتماعية", icon: "☺" },
   { keys: ["تاريخ", "التاريخ"], label: "التاريخ والذاكرة الوطنية", icon: "◆" },
   { keys: ["طاقة", "الطاقة", "كهرباء", "نفط"], label: "الطاقة والبنية التحتية", icon: "⚡" },
-  { keys: ["صحة", "الصحة", "تعليم", "التعليم"], label: "الصحة والتنمية", icon: "✚" }
+  { keys: ["صحة", "الصحة", "تعليم", "التعليم"], label: "الصحة والتنمية", icon: "✚" },
+  { keys: ["علوم عسكرية", "عسكرية", "العسكرية", "الدفاع", "دفاع", "الجيش", "الأمن", "استخبارات"], label: "العلوم العسكرية والأمنية", icon: "⬟" },
+  { keys: ["علاقات دولية", "العلاقات الدولية", "الخارجية", "الدولية", "سياسة خارجية"], label: "العلاقات الدولية", icon: "✈" }
 ];
 
 function specialtyInfo(raw) {
@@ -187,33 +189,52 @@ async function main() {
 
   const studies = [];
 
+  // دمج المصادر: Drive (إن وُجد) + مجلد studies/ داخل المستودع (إن وُجد مع محتوى)
+  // حتى يلتقط النشر التلقائي من الخادم أي دراسة جديدة تُضاف لأي من المصدرين.
   if (drive) {
-    console.log("مصدر الدراسات: Google Drive (folderId=" + drive.folderId + ")");
-    const files = await listDrivePdfs(drive);
-    for (const f of files) {
-      const parsed = parseStudyFile(f.name);
-      studies.push(Object.assign(parsed, {
-        source: "drive",
-        driveId: f.id,
-        driveViewUrl: "https://drive.google.com/file/d/" + f.id + "/preview",
-        driveDownloadUrl: "https://drive.google.com/uc?export=download&id=" + f.id,
-        size: Math.round(Number(f.size || 0) / 1024),
-        modified: f.modifiedTime || new Date().toISOString()
-      }));
+    console.log("مصدر الدراسات 1: Google Drive (folderId=" + drive.folderId + ")");
+    try {
+      const files = await listDrivePdfs(drive);
+      for (const f of files) {
+        const parsed = parseStudyFile(f.name);
+        studies.push(Object.assign(parsed, {
+          source: "drive",
+          driveId: f.id,
+          driveViewUrl: "https://drive.google.com/file/d/" + f.id + "/preview",
+          driveDownloadUrl: "https://drive.google.com/uc?export=download&id=" + f.id,
+          size: Math.round(Number(f.size || 0) / 1024),
+          modified: f.modifiedTime || new Date().toISOString()
+        }));
+      }
+      console.log("  Drive: " + files.length + " ملف.");
+    } catch (err) {
+      console.warn("  (تخطي Drive — " + (err.message || err) + ")");
     }
-    rm(path.join(OUT, "studies"));
-  } else {
-    console.log("مصدر الدراسات: مجلد studies/ المحلي (بدون ربط Drive)");
+  }
+
+  const repoStudies = fs.existsSync(STUDIES) ? fs.readdirSync(STUDIES).filter((f) => /\.pdf$/i.test(f)) : [];
+  if (repoStudies.length) {
+    console.log("مصدر الدراسات 2: مجلد studies/ داخل المستودع (" + repoStudies.length + " ملف).");
     fs.mkdirSync(path.join(OUT, "studies"), { recursive: true });
-    for (const file of fs.readdirSync(STUDIES)) {
-      if (!/\.pdf$/i.test(file)) continue;
+    for (const file of repoStudies) {
+      if (studies.some((s) => s.file === file)) {
+        console.log("  (مكرر في الاثنين، يُفضَّل نسخة المستودع)");
+        studies = studies.filter((s) => s.file !== file);
+      }
       try {
         const st = fs.statSync(path.join(STUDIES, file));
         const parsed = parseStudyFile(file);
-        studies.push(Object.assign(parsed, { size: Math.round(st.size / 1024), modified: st.mtime.toISOString() }));
+        studies.push(Object.assign(parsed, { source: "local", size: Math.round(st.size / 1024), modified: st.mtime.toISOString() }));
         fs.copyFileSync(path.join(STUDIES, file), path.join(OUT, "studies", file));
       } catch (_) { }
     }
+  } else if (!drive) {
+    // لا Drive ولا محتوى مستودعي — نسخة قديمة خالية
+    rm(path.join(OUT, "studies"));
+  }
+
+  if (!repoStudies.length && drive) {
+    rm(path.join(OUT, "studies"));
   }
 
   studies.sort((a, b) =>

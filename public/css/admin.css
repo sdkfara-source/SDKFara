@@ -7,6 +7,7 @@
   --txt: #e6e9ef; --muted: #9aa3b2;
   --danger: #e0526b;
 }
+[hidden] { display: none !important; }
 html, body { height: 100%; }
 body {
   font-family: "Tajawal", sans-serif; background: var(--navy-950); color: var(--txt);
@@ -59,6 +60,18 @@ label { display: block; font-weight: 600; color: var(--gold-300); font-size: 13p
 .login-logo { width: 115px; height: 115px; border-radius: 14px; object-fit: contain; background: rgba(255,255,255,.04); box-shadow: 0 0 50px rgba(201,169,106,.25); }
 .login-card label { text-align: right; margin-bottom: 14px; }
 .login-card label input { margin-top: 6px; }
+.pw-wrap {
+  position: relative; display: block; margin-top: 6px;
+}
+.pw-wrap input { margin-top: 0 !important; padding-left: 44px; }
+.pw-toggle {
+  position: absolute; top: 50%; transform: translateY(-50%); left: 6px;
+  width: 34px; height: 34px; display: grid; place-items: center;
+  border: none; background: transparent; color: var(--muted); cursor: pointer;
+  border-radius: 8px; transition: color .2s, background .2s;
+}
+.pw-toggle:hover { color: var(--gold-300); background: rgba(201,169,106,.1); }
+.pw-toggle:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(201,169,106,.3); color: var(--gold-300); }
 .login-err { color: var(--danger); font-size: 13px; min-height: 20px; margin: 4px 0 10px; }
 .login-hint { margin-top: 18px; color: var(--muted); font-size: 12px; }
 
